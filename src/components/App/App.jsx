@@ -43,6 +43,18 @@ class App extends Component {
     });
   };
 
+  deleteContact = id => {
+    this.setState(prevState => {
+      const newContacts = prevState.contacts.filter(
+        contact => contact.id !== id
+      );
+
+      return {
+        contacts: newContacts,
+      };
+    });
+  };
+
   render() {
     const { contacts, filter } = this.state;
 
@@ -50,7 +62,11 @@ class App extends Component {
       <>
         <ContactForm onSubmit={this.addContact} />
         <ContactsFilter onChangeFilter={this.handleChangeFilter} />
-        <ContactsList contacts={contacts} filter={filter} />
+        <ContactsList
+          contacts={contacts}
+          filter={filter}
+          deleteContact={this.deleteContact}
+        />
       </>
     );
   }

@@ -16,8 +16,10 @@ class ContactForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     const { name, number } = this.state;
     const id = nanoid();
+
     this.props.onSubmit({ name, number, id });
     this.setState({
       name: '',
@@ -38,6 +40,8 @@ class ContactForm extends Component {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
             onChange={this.handleChange}
+            placeholder="Enter name"
+            autoComplete="off"
           />
         </label>
         <label>
@@ -49,6 +53,8 @@ class ContactForm extends Component {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={this.handleChange}
+            placeholder="Enter phone number"
+            autoComplete="off"
           />
         </label>
         <button type="submit">Add contact</button>

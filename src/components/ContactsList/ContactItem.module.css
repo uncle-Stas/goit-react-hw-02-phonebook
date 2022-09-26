@@ -1,7 +1,6 @@
 .contactItem {
   display: flex;
   align-items: center;
-  max-width: 350px;
   line-height: 1.8;
 }
 

@@ -1,4 +1,5 @@
 import css from './ContactForm.module.css';
+import PropTypes from 'prop-types';
 
 import { nanoid } from 'nanoid';
 import { Component } from 'react';
@@ -46,6 +47,7 @@ class ContactForm extends Component {
               onChange={this.handleChange}
               placeholder="Enter name"
               autoComplete="off"
+              minLength={3}
             />
           </label>
           <label className={css.inputLabel}>
@@ -71,3 +73,9 @@ class ContactForm extends Component {
 }
 
 export default ContactForm;
+
+// --------------------------- PropTypes ----------------------
+
+ContactForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

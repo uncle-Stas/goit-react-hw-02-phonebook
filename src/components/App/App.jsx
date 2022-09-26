@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+import { Notify } from 'notiflix';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactsList from 'components/ContactsList/ContactsList';
 import ContactsFilter from 'components/ContactsFilter/ContactsFilter';
@@ -30,7 +31,10 @@ class App extends Component {
     }
 
     nameRepeat
-      ? alert(`${data.name}, is alredy in contacts`)
+      ? Notify.failure(`${data.name}, is alredy in contacts`, {
+          position: 'center-top',
+          timeout: 5000,
+        })
       : this.setState(prevState => {
           return {
             contacts: [...prevState.contacts, data],
@@ -67,16 +71,18 @@ class App extends Component {
           <ContactForm onSubmit={this.addContact} />
         </Section>
         <Section>
-          <ContactsFilter onChangeFilter={this.handleChangeFilter} />
-          {checkContacts ? (
-            <ContactsList
-              contacts={contacts}
-              filter={filter}
-              deleteContact={this.deleteContact}
-            />
-          ) : (
-            <Notification text="You don't have contacts in the phone book. Please add new contacts." />
-          )}
+          <>
+            <ContactsFilter onChangeFilter={this.handleChangeFilter} />
+            {checkContacts ? (
+              <ContactsList
+                contacts={contacts}
+                filter={filter}
+                deleteContact={this.deleteContact}
+              />
+            ) : (
+              <Notification text="You don't have contacts in the phone book. Please add new contacts." />
+            )}
+          </>
         </Section>
       </>
     );

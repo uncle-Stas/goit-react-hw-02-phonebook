@@ -8,7 +8,6 @@ class ContactForm extends Component {
   };
 
   handleChange = event => {
-    console.log(event.target.value);
     const { name, value } = event.target;
     this.setState({
       [name]: value,
@@ -20,6 +19,11 @@ class ContactForm extends Component {
     const { name, number } = this.state;
     const id = nanoid();
     this.props.onSubmit({ name, number, id });
+    this.setState({
+      name: '',
+      number: '',
+    });
+    event.target.reset();
   };
 
   render() {

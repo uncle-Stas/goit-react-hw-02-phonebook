@@ -1,11 +1,13 @@
 //
 
-const ContactItem = ({ id, name, number }) => {
-  return (
-    <li key={id}>
-      {name}: {number}
-    </li>
-  );
+const ContactItem = ({ name, number, filter }) => {
+  if (name.toLowerCase().includes(filter.toLowerCase())) {
+    return (
+      <li>
+        {name}: {number}
+      </li>
+    );
+  }
 };
 
 export default ContactItem;

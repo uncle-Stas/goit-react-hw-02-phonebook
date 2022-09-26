@@ -2,14 +2,15 @@
 
 import ContactItem from './ContactItem';
 
-const ContactsList = ({ contacts }) => {
+const ContactsList = ({ contacts, filter }) => {
   return (
     <ul>
       {contacts.map(contact => (
         <ContactItem
-          id={contact.id}
+          key={contact.id}
           name={contact.name}
           number={contact.number}
+          filter={filter}
         />
       ))}
     </ul>

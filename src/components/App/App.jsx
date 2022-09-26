@@ -3,6 +3,8 @@ import { Component } from 'react';
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactsList from 'components/ContactsList/ContactsList';
 import ContactsFilter from 'components/ContactsFilter/ContactsFilter';
+import Section from 'components/Section/Section';
+import Notification from 'components/Notification/Notification';
 
 class App extends Component {
   state = {
@@ -57,16 +59,25 @@ class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
+    const checkContacts = contacts.length;
 
     return (
       <>
-        <ContactForm onSubmit={this.addContact} />
-        <ContactsFilter onChangeFilter={this.handleChangeFilter} />
-        <ContactsList
-          contacts={contacts}
-          filter={filter}
-          deleteContact={this.deleteContact}
-        />
+        <Section>
+          <ContactForm onSubmit={this.addContact} />
+        </Section>
+        <Section>
+          <ContactsFilter onChangeFilter={this.handleChangeFilter} />
+          {checkContacts ? (
+            <ContactsList
+              contacts={contacts}
+              filter={filter}
+              deleteContact={this.deleteContact}
+            />
+          ) : (
+            <Notification text="You don't have contacts in the phone book. Please add new contacts." />
+          )}
+        </Section>
       </>
     );
   }

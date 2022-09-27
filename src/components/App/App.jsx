@@ -1,6 +1,6 @@
 import { Component } from 'react';
-
 import { Notify } from 'notiflix';
+
 import ContactForm from 'components/ContactForm/ContactForm';
 import ContactsList from 'components/ContactsList/ContactsList';
 import ContactsFilter from 'components/ContactsFilter/ContactsFilter';
@@ -18,26 +18,26 @@ class App extends Component {
     filter: '',
   };
 
-  addContact = data => {
+  addContact = newContact => {
     const { contacts } = this.state;
 
     let nameRepeat = 0;
 
     for (const contact of contacts) {
-      if (contact.name.toLowerCase() === data.name.toLowerCase()) {
+      if (contact.name.toLowerCase() === newContact.name.toLowerCase()) {
         nameRepeat = 1;
         break;
       }
     }
 
     nameRepeat
-      ? Notify.failure(`${data.name}, is alredy in contacts`, {
+      ? Notify.failure(`${newContact.name}, is alredy in contacts`, {
           position: 'center-top',
           timeout: 5000,
         })
       : this.setState(prevState => {
           return {
-            contacts: [...prevState.contacts, data],
+            contacts: [...prevState.contacts, newContact],
           };
         });
   };
@@ -48,6 +48,20 @@ class App extends Component {
       filter: value,
     });
   };
+
+  filterContacts() {
+    const { contacts, filter } = this.state;
+
+    if (!filter) {
+      return contacts;
+    }
+
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+
+    return filteredContacts;
+  }
 
   deleteContact = id => {
     this.setState(prevState => {
@@ -64,6 +78,7 @@ class App extends Component {
   render() {
     const { contacts, filter } = this.state;
     const checkContacts = contacts.length;
+    const filteredContacts = this.filterContacts();
 
     return (
       <>
@@ -75,9 +90,9 @@ class App extends Component {
             <ContactsFilter onChangeFilter={this.handleChangeFilter} />
             {checkContacts ? (
               <ContactsList
-                contacts={contacts}
-                filter={filter}
+                contacts={filteredContacts}
                 deleteContact={this.deleteContact}
+                searchContact={filter}
               />
             ) : (
               <Notification text="You don't have contacts in the phone book. Please add new contacts." />

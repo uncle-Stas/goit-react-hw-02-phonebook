@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types';
 
-const Notification = ({ text }) => {
+const Notification = ({ text, italicText }) => {
   return (
     <p>
-      <b>{text}</b>
+      <b>
+        <i>{italicText} </i>
+        {text}
+      </b>
     </p>
   );
 };
@@ -14,4 +17,5 @@ export default Notification;
 
 Notification.propTypes = {
   text: PropTypes.string.isRequired,
+  italicText: PropTypes.string,
 };
